@@ -7,13 +7,14 @@ const Nav = () => {
   const { pathname } = useLocation();
 
   return (
-    <StyledNav>
+    <StyledNav className="nav">
       <ul>
         <li>
           <MotionLink
             to="/home"
-            transition={{ duration: "0.75" }}
+            transition={{ duration: "0.3" }}
             initial={{ color: "#fff" }}
+            whileHover={{ color: "#db7093" }}
             animate={{ color: pathname === "/home" ? "#db7093" : "#fff" }}
           >
             Home
@@ -21,10 +22,11 @@ const Nav = () => {
         </li>
         <li>
           <MotionLink
-            to="/product"
-            transition={{ duration: "0.75" }}
+            to="/products"
+            transition={{ duration: "0.3" }}
             initial={{ color: "#fff" }}
-            animate={{ color: pathname === "/product" ? "#db7093" : "#fff" }}
+            whileHover={{ color: "#db7093" }}
+            animate={{ color: pathname === "/products" ? "#db7093" : "#fff" }}
           >
             Products
           </MotionLink>
@@ -32,8 +34,9 @@ const Nav = () => {
         <li>
           <MotionLink
             to="/cart"
-            transition={{ duration: "0.75" }}
+            transition={{ duration: "0.3" }}
             initial={{ color: "#fff" }}
+            whileHover={{ color: "#db7093" }}
             animate={{ color: pathname === "/cart" ? "#db7093" : "#fff" }}
           >
             <i class="fa-solid fa-cart-shopping"></i>
@@ -46,22 +49,25 @@ const Nav = () => {
 
 // Styled
 const StyledNav = styled.nav`
-  min-height: 10vh;
+  height: 12vh;
+  max-height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #000;
   ul {
-    width: 100%;
+    width: 1000px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     list-style: none;
     font-weight: bold;
   }
   a {
     color: #fff;
-    text-decoration: none;
+  }
+  li:hover {
+    color: #db7093;
   }
 `;
 
