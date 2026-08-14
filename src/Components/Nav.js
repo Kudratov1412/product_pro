@@ -4,17 +4,40 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Nav = () => {
+  const { pathname } = useLocation();
+
   return (
     <StyledNav>
       <ul>
         <li>
-          <a href="/home">Home</a>
+          <MotionLink
+            to="/home"
+            transition={{ duration: "0.75" }}
+            initial={{ color: "#fff" }}
+            animate={{ color: pathname === "/home" ? "#db7093" : "#fff" }}
+          >
+            Home
+          </MotionLink>
         </li>
         <li>
-          <a href="/product">Product</a>
+          <MotionLink
+            to="/product"
+            transition={{ duration: "0.75" }}
+            initial={{ color: "#fff" }}
+            animate={{ color: pathname === "/product" ? "#db7093" : "#fff" }}
+          >
+            Products
+          </MotionLink>
         </li>
         <li>
-          <a href="/cart">cart</a>
+          <MotionLink
+            to="/cart"
+            transition={{ duration: "0.75" }}
+            initial={{ color: "#fff" }}
+            animate={{ color: pathname === "/cart" ? "#db7093" : "#fff" }}
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+          </MotionLink>
         </li>
       </ul>
     </StyledNav>
@@ -34,11 +57,14 @@ const StyledNav = styled.nav`
     align-items: center;
     justify-content: space-around;
     list-style: none;
+    font-weight: bold;
   }
   a {
     color: #fff;
     text-decoration: none;
   }
 `;
+
+const MotionLink = motion(Link);
 
 export default Nav;
