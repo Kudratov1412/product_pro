@@ -26,25 +26,25 @@ const StyledProCard = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 0 3rem;
+  padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 3px 7px rgba(133, 133, 133, 0.3);
   img {
     height: 200px;
-    margin: 20px 0 5px;
+    /* margin: 20px 0 5px; */
   }
   h4 {
     font-family: "Work Sans", sans-serif;
     font-weight: 300;
+    margin: 1rem;
   }
   p {
     font-family: "Work Sans", sans-serif;
     font-weight: 300;
-    margin: 1rem 0;
+    margin: 1rem;
   }
   .shopping {
     display: flex;
-    margin-bottom: 1rem;
     input,
     button {
       border: 2px solid #db7093;
