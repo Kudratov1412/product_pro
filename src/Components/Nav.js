@@ -49,22 +49,30 @@ const Nav = () => {
 
 // Styled
 const StyledNav = styled.nav`
-  height: 12vh;
-  max-height: 50px;
+  height: 50px;
+  width: 100%;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #000;
+  position: fixed;
+  z-index: 10;
   ul {
-    width: 1000px;
+    width: 800px;
+    max-width: 600px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     list-style: none;
     font-weight: bold;
   }
   a {
     color: #fff;
+    font-size: 1rem;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 600;
   }
   li:hover {
     color: #db7093;

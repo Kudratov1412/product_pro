@@ -8,6 +8,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'SF Pro Display', sans-serif;
     text-align: center;
   }
+  body {
+    margin: 8px;
+  }
   a {
     text-decoration: none;
     color: #000;

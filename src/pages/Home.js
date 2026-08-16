@@ -27,32 +27,33 @@ const StyledHome = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 70px auto 0;
+  max-width: 768px;
   a {
     width: 100%;
-    max-width: 736px;
-  }
-  h1 {
-    width: 100%;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin: 0.5rem;
-    text-align: end;
-    font-size: 3rem;
-    width: 100%;
-    font-family: "Work Sans", sans-serif;
+    h1 {
+      margin: 0 10px 0 19px;
+      text-transform: uppercase;
+      text-align: right;
+      line-height: 0.7;
+      font-size: 3rem;
+      font-weight: bold;
+      font-family: "Work Sans", sans-serif;
+    }
   }
   p {
     font-family: "Work Sans", sans-serif;
     font-weight: 300;
     font-size: 1rem;
+    margin: 1rem 0;
   }
   .products {
     max-width: 736px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 24px 48px;
-    margin: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-columns: auto;
+    gap: 1rem 2rem;
+    margin: 0 1rem 0;
   }
 `;
 
