@@ -39,7 +39,7 @@ const Nav = () => {
             whileHover={{ color: "#db7093" }}
             animate={{ color: pathname === "/cart" ? "#db7093" : "#fff" }}
           >
-            <i class="fa-solid fa-cart-shopping"></i>
+            <i className="fa-solid fa-cart-shopping"></i>
           </MotionLink>
         </li>
       </ul>

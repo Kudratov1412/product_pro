@@ -7,6 +7,17 @@ import { motion } from "framer-motion";
 export const ProCard = (product) => {
   const p = product.product;
 
+  const [prodVal, setProdVal] = useState(1);
+
+  const setInput = (e) => {
+    const val = e.target.value;
+    setProdVal(val === "" ? "" : Number(val));
+  };
+
+  const pushVal = (val) => {
+    p.value = val;
+  };
+
   return (
     <StyledProCard className="proCard">
       <Link to={p.url}>
@@ -18,13 +29,21 @@ export const ProCard = (product) => {
           <p>${p.price}</p>
         </div>
       </Link>
-      <form className="shopping">
-        <input type="number" name="num" id="num" min={1} value={1} />
+      <form className="shopping" action="">
+        <input
+          type="number"
+          name="num"
+          id="num"
+          min={1}
+          value={prodVal}
+          onChange={setInput}
+        />
         <motion.button
+          onClick={() => pushVal(prodVal)}
           transition={{ duration: "0.3" }}
           initial={{ color: "#db7093", backgroundColor: "#fff" }}
           whileHover={{ color: "#fff", backgroundColor: "#db7093" }}
-          type="submit"
+          type="button"
         >
           Add to Cart
         </motion.button>

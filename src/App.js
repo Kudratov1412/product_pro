@@ -13,6 +13,8 @@ import {
   Switch,
   Route,
   useLocation,
+  Redirect,
+  Prompt,
 } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
@@ -26,6 +28,9 @@ function App() {
       <Nav />
 
       <Switch location={location} key={location.pathname}>
+        <Route path="/" exact>
+          <Redirect to="/home" />
+        </Route>
         <Route path="/home" exact>
           <Home products={products} />
         </Route>
@@ -36,7 +41,7 @@ function App() {
           <Product />
         </Route>
         <Route path="/cart">
-          <Cart />
+          <Cart products={products} />
         </Route>
       </Switch>
     </div>
