@@ -22,10 +22,12 @@ function App() {
 
   const [products, setProducts] = useState(ProductState);
 
+  const [collectNum, setCollectNum] = useState(0);
+
   return (
     <div className="App">
       <GlobalStyle />
-      <Nav />
+      <Nav collectNum={collectNum}/>
 
       <Switch location={location} key={location.pathname}>
         <Route path="/" exact>
@@ -35,13 +37,17 @@ function App() {
           <Home products={products} />
         </Route>
         <Route path="/products" exact>
-          <Products products={products} />
+          <Products
+            products={products}
+            collectNum={collectNum}
+            setCollectNum={setCollectNum}
+          />
         </Route>
         <Route path="/product/:id">
           <Product />
         </Route>
         <Route path="/cart">
-          <Cart products={products} />
+          <Cart products={products} collectNum={collectNum} />
         </Route>
       </Switch>
     </div>

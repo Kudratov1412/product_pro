@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const Nav = () => {
+const Nav = ({ collectNum }) => {
   const { pathname } = useLocation();
 
   return (
@@ -39,7 +39,7 @@ const Nav = () => {
             whileHover={{ color: "#db7093" }}
             animate={{ color: pathname === "/cart" ? "#db7093" : "#fff" }}
           >
-            <i className="fa-solid fa-cart-shopping"></i>
+            <i className="fa-solid fa-cart-shopping"></i>{collectNum !== 0 ? "(" + collectNum + ")" : ""}
           </MotionLink>
         </li>
       </ul>
@@ -71,7 +71,6 @@ const StyledNav = styled.nav`
   a {
     color: #fff;
     font-size: 1rem;
-    font-family: "Work Sans", sans-serif;
     font-weight: 600;
   }
   li:hover {

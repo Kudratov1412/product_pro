@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'SF Pro Display', sans-serif;
+    font-family: "Work Sans", sans-serif;
     text-align: center;
   }
   body {
@@ -14,6 +14,9 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     color: #000;
+  }
+  p {
+    font-weight: 300;
   }
 `;
 

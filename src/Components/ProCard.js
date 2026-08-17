@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { motion } from "framer-motion";
 
-export const ProCard = (product) => {
-  const p = product.product;
+export const ProCard = ({ product, collectNum, setCollectNum }) => {
+  const p = product;
 
   const [prodVal, setProdVal] = useState(1);
 
@@ -15,7 +15,8 @@ export const ProCard = (product) => {
   };
 
   const pushVal = (val) => {
-    p.value = val;
+    p.value += val;
+    setCollectNum(collectNum + val);
   };
 
   return (
@@ -73,12 +74,10 @@ const StyledProCard = styled.div`
       /* margin: 20px 0 5px; */
     }
     h4 {
-      font-family: "Work Sans", sans-serif;
       font-weight: 300;
       margin: 0.8rem;
     }
     p {
-      font-family: "Work Sans", sans-serif;
       font-weight: 300;
       margin: 0.8rem;
     }
