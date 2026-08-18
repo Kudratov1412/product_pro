@@ -4,8 +4,26 @@ import styled from "styled-components";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { motion } from "framer-motion";
 
-export const MovCard = ({ product }) => {
-  const p = product;
+export const MovCard = ({
+  products,
+  setProducts,
+  general,
+  setGeneral,
+  index,
+}) => {
+  const p = products[index];
+
+  const [inputVal, setInputVal] = useState(p.value);
+
+  const setInput = (e) => {
+    const val = e.target.value;
+    setInputVal(val === "" ? "" : Number(val));
+    setProducts(index, val);
+    // setGeneral({
+    //   ...general,
+    //   value: val === "" ? "" : Number(val) + general.value,
+    // });
+  };
 
   return (
     <StyledMovCard className="movCard">
@@ -23,7 +41,7 @@ export const MovCard = ({ product }) => {
           >
             -
           </motion.button>
-          <input type="number" name="" id="" value={p.value} />
+          <input type="number" min={0} value={inputVal} onChange={setInput} />
           <motion.button
             transition={{ duration: "0.3" }}
             initial={{ color: "#db7093", backgroundColor: "#fff" }}
@@ -38,7 +56,7 @@ export const MovCard = ({ product }) => {
             initial={{ color: "#000" }}
             whileHover={{ color: "#db7093" }}
           >
-            <i class="fa-solid fa-trash-can"></i>
+            <i className="fa-solid fa-trash-can"></i>
           </motion.button>
         </div>
       </div>

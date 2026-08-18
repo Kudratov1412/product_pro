@@ -3,15 +3,11 @@ import styled from "styled-components";
 // Components
 import { ProCard } from "../Components/ProCard";
 
-const Products = ({ products, collectNum, setCollectNum }) => {
+const Products = ({ products, general, setGeneral }) => {
   return (
     <StyledProducts className="products">
       {products.map((product) => (
-        <ProCard
-          product={product}
-          collectNum={collectNum}
-          setCollectNum={setCollectNum}
-        />
+        <ProCard product={product} general={general} setGeneral={setGeneral} />
       ))}
     </StyledProducts>
   );

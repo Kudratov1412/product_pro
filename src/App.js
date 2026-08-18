@@ -20,14 +20,23 @@ import {
 function App() {
   const location = useLocation();
 
-  const [products, setProducts] = useState(ProductState);
+  const [products, updateProducts] = useState(ProductState);
 
-  const [collectNum, setCollectNum] = useState(0);
+  const setProducts = (index, newValue) => {
+    updateProducts((prevProducts) =>
+      prevProducts.map((p, i) => (i === index ? { ...p, value: newValue } : p)),
+    );
+  };
+
+  const [general, setGeneral] = useState({
+    price: 0,
+    value: 0,
+  });
 
   return (
     <div className="App">
       <GlobalStyle />
-      <Nav collectNum={collectNum}/>
+      <Nav general={general} />
 
       <Switch location={location} key={location.pathname}>
         <Route path="/" exact>
@@ -39,15 +48,20 @@ function App() {
         <Route path="/products" exact>
           <Products
             products={products}
-            collectNum={collectNum}
-            setCollectNum={setCollectNum}
+            general={general}
+            setGeneral={setGeneral}
           />
         </Route>
         <Route path="/product/:id">
           <Product />
         </Route>
         <Route path="/cart">
-          <Cart products={products} collectNum={collectNum} />
+          <Cart
+            products={products}
+            setProducts={setProducts}
+            general={general}
+            setGeneral={setGeneral}
+          />
         </Route>
       </Switch>
     </div>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { motion } from "framer-motion";
 
-export const ProCard = ({ product, collectNum, setCollectNum }) => {
+export const ProCard = ({ product, general, setGeneral }) => {
   const p = product;
 
   const [prodVal, setProdVal] = useState(1);
@@ -16,7 +16,10 @@ export const ProCard = ({ product, collectNum, setCollectNum }) => {
 
   const pushVal = (val) => {
     p.value += val;
-    setCollectNum(collectNum + val);
+    setGeneral({
+      ...general,
+      value: general.value + val,
+    });
   };
 
   return (

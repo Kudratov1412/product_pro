@@ -5,10 +5,30 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { MovCard } from "./../Components/MovCard";
 import styled from "styled-components";
 
-const Cart = ({ products, collectNum }) => {
+const Cart = ({ products, setProducts, general, setGeneral }) => {
+  useEffect(() => {
+    products.map((p) => {
+      const a = p.value * Number(p.price);
+      setGeneral({
+        ...general,
+        price: a + general.price,
+      });
+      // console.log(
+      //   p.value +
+      //     " * " +
+      //     p.price +
+      //     " = " +
+      //     p.value * Number(p.price) +
+      //     " - " +
+      //     general.price,
+      // );
+    });
+    // console.log(general.price);
+  }, products);
+
   return (
     <StyledCart className="cart">
-      {collectNum === 0 ? (
+      {general.value === 0 ? (
         <div className="null">
           No Items In Cart! Add
           <br />
@@ -18,7 +38,17 @@ const Cart = ({ products, collectNum }) => {
         </div>
       ) : (
         <div>
-          <MovCard product={products[0]} />
+          <MovCard
+            products={products}
+            setProducts={setProducts}
+            general={general}
+            setGeneral={setGeneral}
+            index={0}
+          />
+          <p>
+            <span>total before shipping: </span>
+            {general.value} items {"($" + general.price + ")"}
+          </p>
         </div>
       )}
     </StyledCart>
