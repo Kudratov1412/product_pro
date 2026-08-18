@@ -15,13 +15,37 @@ export const MovCard = ({
 
   const [inputVal, setInputVal] = useState(p.value);
 
-  const setInput = (e) => {
-    const val = e.target.value;
-    setInputVal(val === "" ? "" : Number(val));
-    setProducts(index, val);
+  const handleKeyDown = (e) => {
+    console.log(general.value);
+    if (e.key === "ArrowUp") {
+      setGeneral({
+        ...general,
+        value: general.value + 1,
+      });
+    } else if (e.key === "ArrowDown") {
+      setGeneral({
+        ...general,
+        value: general.value - 1,
+      });
+    }
+  };
+
+  const increment = () => {
+    setInputVal(inputVal + 1);
+    setProducts(index, inputVal);
+    console.log(inputVal);
     // setGeneral({
     //   ...general,
-    //   value: val === "" ? "" : Number(val) + general.value,
+    //   value: general.value + 1,
+    // });
+  };
+  const decrement = () => {
+    if (inputVal > 0) setInputVal(inputVal - 1);
+    console.log(inputVal);
+    setProducts(index, inputVal);
+    // setGeneral({
+    //   ...general,
+    //   value: general.value - 1,
     // });
   };
 
@@ -35,14 +59,26 @@ export const MovCard = ({
       <div className="btns">
         <div>
           <motion.button
+            onClick={decrement}
             transition={{ duration: "0.3" }}
             initial={{ color: "#db7093", backgroundColor: "#fff" }}
             whileHover={{ color: "#fff", backgroundColor: "#db7093" }}
           >
             -
           </motion.button>
-          <input type="number" min={0} value={inputVal} onChange={setInput} />
+          <input
+            type="number"
+            min={0}
+            value={inputVal}
+            onChange={(e) => {
+              const val = Number(e.target.value);
+              setInputVal(val);
+              setProducts(index, val);
+            }}
+            onKeyUp={handleKeyDown}
+          />
           <motion.button
+            onClick={increment}
             transition={{ duration: "0.3" }}
             initial={{ color: "#db7093", backgroundColor: "#fff" }}
             whileHover={{ color: "#fff", backgroundColor: "#db7093" }}

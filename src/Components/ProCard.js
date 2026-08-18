@@ -9,11 +9,6 @@ export const ProCard = ({ product, general, setGeneral }) => {
 
   const [prodVal, setProdVal] = useState(1);
 
-  const setInput = (e) => {
-    const val = e.target.value;
-    setProdVal(val === "" ? "" : Number(val));
-  };
-
   const pushVal = (val) => {
     p.value += val;
     setGeneral({
@@ -40,7 +35,7 @@ export const ProCard = ({ product, general, setGeneral }) => {
           id="num"
           min={1}
           value={prodVal}
-          onChange={setInput}
+          onChange={(e) => setProdVal(Number(e.target.value))}
         />
         <motion.button
           onClick={() => pushVal(prodVal)}
