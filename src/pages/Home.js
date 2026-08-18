@@ -5,7 +5,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 // Components
 import { ProCard } from "../Components/ProCard";
 
-const Home = ({ products }) => {
+const Home = ({ products, cloneProducts, general, setGeneral }) => {
   return (
     <StyledHome className="home">
       <Link to="/products">
@@ -13,10 +13,30 @@ const Home = ({ products }) => {
       </Link>
       <p>Featured Products:</p>
       <div className="products">
-        <ProCard product={products[0]} />
-        <ProCard product={products[1]} />
-        <ProCard product={products[2]} />
-        <ProCard product={products[3]} />
+        <ProCard
+          product={products[0]}
+          cloneProducts={cloneProducts}
+          general={general}
+          setGeneral={setGeneral}
+        />
+        <ProCard
+          product={products[1]}
+          cloneProducts={cloneProducts}
+          general={general}
+          setGeneral={setGeneral}
+        />
+        <ProCard
+          product={products[2]}
+          cloneProducts={cloneProducts}
+          general={general}
+          setGeneral={setGeneral}
+        />
+        <ProCard
+          product={products[3]}
+          cloneProducts={cloneProducts}
+          general={general}
+          setGeneral={setGeneral}
+        />
       </div>
     </StyledHome>
   );

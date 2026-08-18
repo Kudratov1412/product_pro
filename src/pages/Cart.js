@@ -5,27 +5,13 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { MovCard } from "./../Components/MovCard";
 import styled from "styled-components";
 
-const Cart = ({ products, setProducts, general, setGeneral }) => {
-  useEffect(() => {
-    products.map((p) => {
-      const a = p.value * Number(p.price);
-      setGeneral({
-        ...general,
-        price: a + general.price,
-      });
-      // console.log(
-      //   p.value +
-      //     " * " +
-      //     p.price +
-      //     " = " +
-      //     p.value * Number(p.price) +
-      //     " - " +
-      //     general.price,
-      // );
-    });
-    // console.log(general.price);
-  }, products);
-
+const Cart = ({
+  products,
+  setProducts,
+  general,
+  setGeneral,
+  cloneProducts,
+}) => {
   return (
     <StyledCart className="cart">
       {general.value === 0 ? (
@@ -37,15 +23,18 @@ const Cart = ({ products, setProducts, general, setGeneral }) => {
           to proceed.
         </div>
       ) : (
-        <div>
-          <MovCard
-            products={products}
-            setProducts={setProducts}
-            general={general}
-            setGeneral={setGeneral}
-            index={0}
-          />
-          <p>
+        <div className="yes">
+          {cloneProducts.map((p) => (
+            <MovCard
+              products={products}
+              setProducts={setProducts}
+              cloneProducts={cloneProducts}
+              general={general}
+              setGeneral={setGeneral}
+              id={p.id}
+            />
+          ))}
+          <p className="footer">
             <span>total before shipping: </span>
             {general.value} items {"($" + general.price + ")"}
           </p>
@@ -67,6 +56,15 @@ const StyledCart = styled.div`
     a {
       text-decoration: underline;
       color: #551a8b;
+    }
+  }
+  .yes {
+    p.footer {
+      text-align: left;
+      font-weight: 700;
+      span {
+        text-transform: uppercase;
+      }
     }
   }
 `;

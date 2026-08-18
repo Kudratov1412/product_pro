@@ -7,49 +7,55 @@ import { motion } from "framer-motion";
 export const MovCard = ({
   products,
   setProducts,
+  cloneProducts,
   general,
   setGeneral,
-  index,
+  id,
 }) => {
-  const p = products[index];
+  const p = products.filter((p) => p.id === id)[0];
 
   const [inputVal, setInputVal] = useState(p.value);
 
-  const handleKeyDown = (e) => {
-    console.log(general.value);
-    if (e.key === "ArrowUp") {
-      setGeneral({
-        ...general,
-        value: general.value + 1,
-      });
-    } else if (e.key === "ArrowDown") {
-      setGeneral({
-        ...general,
-        value: general.value - 1,
-      });
-    }
-  };
-
   const increment = () => {
+    p.value += 1;
+
+    setGeneral({
+      price: general.price + Number(p.price),
+      value: general.value + 1,
+    });
+
+    if (!cloneProducts.includes(p)) {
+      cloneProducts.unshift(p);
+    }
+
     setInputVal(inputVal + 1);
-    setProducts(index, inputVal);
-    console.log(inputVal);
-    // setGeneral({
-    //   ...general,
-    //   value: general.value + 1,
-    // });
-  };
-  const decrement = () => {
-    if (inputVal > 0) setInputVal(inputVal - 1);
-    console.log(inputVal);
-    setProducts(index, inputVal);
-    // setGeneral({
-    //   ...general,
-    //   value: general.value - 1,
-    // });
   };
 
-  return (
+  const decrement = () => {
+    p.value -= 1;
+
+    setGeneral({
+      price: general.price - Number(p.price),
+      value: general.value - 1,
+    });
+
+    if (cloneProducts.includes(p) && p.value === 0) {
+      cloneProducts.splice(cloneProducts.indexOf(p), 1);
+    }
+
+    if (inputVal > 0) setInputVal(inputVal - 1);
+  };
+
+  const goNull = () => {
+    setGeneral({
+      price: general.price - Number(p.price) * p.value,
+      value: general.value - p.value,
+    });
+    cloneProducts.splice(cloneProducts.indexOf(p), 1);
+    setProducts(id, 0);
+  };
+
+  return p.value !== 0 ? (
     <StyledMovCard className="movCard">
       <img src={p.img} alt={p.title} />
       <Link to={p.url}>
@@ -72,10 +78,27 @@ export const MovCard = ({
             value={inputVal}
             onChange={(e) => {
               const val = Number(e.target.value);
+              if (val > inputVal) {
+                setGeneral({
+                  price: general.price + Number(p.price),
+                  value: general.value + 1,
+                });
+                if (!cloneProducts.includes(p)) {
+                  cloneProducts.unshift(p);
+                }
+              }
+              if (val < inputVal) {
+                setGeneral({
+                  price: general.price - Number(p.price),
+                  value: general.value - 1,
+                });
+                if (cloneProducts.includes(p) && p.value === 0) {
+                  cloneProducts.splice(cloneProducts.indexOf(p), 1);
+                }
+              }
               setInputVal(val);
-              setProducts(index, val);
+              setProducts(id, val);
             }}
-            onKeyUp={handleKeyDown}
           />
           <motion.button
             onClick={increment}
@@ -88,6 +111,7 @@ export const MovCard = ({
           <motion.button
             name="delete"
             className="del"
+            onClick={goNull}
             transition={{ duration: "0.3" }}
             initial={{ color: "#000" }}
             whileHover={{ color: "#db7093" }}
@@ -98,6 +122,8 @@ export const MovCard = ({
       </div>
       <p className="totalPrice">${p.value * Number(p.price)}</p>
     </StyledMovCard>
+  ) : (
+    ""
   );
 };
 

@@ -4,15 +4,19 @@ import styled from "styled-components";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { motion } from "framer-motion";
 
-export const ProCard = ({ product, general, setGeneral }) => {
+export const ProCard = ({ product, cloneProducts, general, setGeneral }) => {
   const p = product;
 
   const [prodVal, setProdVal] = useState(1);
 
   const pushVal = (val) => {
     p.value += val;
+    if (cloneProducts.filter((pro) => pro.id === p.id).length === 0) {
+      cloneProducts.unshift(p);
+    }
+
     setGeneral({
-      ...general,
+      price: general.price + p.price * val,
       value: general.value + val,
     });
   };

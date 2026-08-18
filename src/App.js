@@ -22,11 +22,13 @@ function App() {
 
   const [products, updateProducts] = useState(ProductState);
 
-  const setProducts = (index, newValue) => {
+  const setProducts = (id, newValue) => {
     updateProducts((prevProducts) =>
-      prevProducts.map((p, i) => (i === index ? { ...p, value: newValue } : p)),
+      prevProducts.map((p) => (p.id === id ? { ...p, value: newValue } : p)),
     );
   };
+
+  const [cloneProducts, updateCloneProducts] = useState([]);
 
   const [general, setGeneral] = useState({
     price: 0,
@@ -43,11 +45,17 @@ function App() {
           <Redirect to="/home" />
         </Route>
         <Route path="/home" exact>
-          <Home products={products} />
+          <Home
+            products={products}
+            cloneProducts={cloneProducts}
+            general={general}
+            setGeneral={setGeneral}
+          />
         </Route>
         <Route path="/products" exact>
           <Products
             products={products}
+            cloneProducts={cloneProducts}
             general={general}
             setGeneral={setGeneral}
           />
@@ -61,6 +69,7 @@ function App() {
             setProducts={setProducts}
             general={general}
             setGeneral={setGeneral}
+            cloneProducts={cloneProducts}
           />
         </Route>
       </Switch>
