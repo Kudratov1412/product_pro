@@ -16,6 +16,7 @@ export const MovCard = ({
 
   const [inputVal, setInputVal] = useState(p.value);
 
+
   const increment = () => {
     p.value += 1;
 
@@ -40,7 +41,8 @@ export const MovCard = ({
     });
 
     if (cloneProducts.includes(p) && p.value === 0) {
-      cloneProducts.splice(cloneProducts.indexOf(p), 1);
+      const i = cloneProducts.indexOf(p);
+      cloneProducts.splice(i, 1);
     }
 
     if (inputVal > 0) setInputVal(inputVal - 1);
@@ -55,7 +57,7 @@ export const MovCard = ({
     setProducts(id, 0);
   };
 
-  return p.value !== 0 ? (
+  return (
     <StyledMovCard className="movCard">
       <img src={p.img} alt={p.title} />
       <Link to={p.url}>
@@ -122,8 +124,6 @@ export const MovCard = ({
       </div>
       <p className="totalPrice">${p.value * Number(p.price)}</p>
     </StyledMovCard>
-  ) : (
-    ""
   );
 };
 
@@ -141,6 +141,7 @@ const StyledMovCard = styled.div`
     justify-content: center;
     align-items: center;
     h4 {
+      width: 100%;
       text-align: left;
       color: #551a8b;
       font-weight: 300;

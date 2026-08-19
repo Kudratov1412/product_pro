@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 // Components
@@ -12,6 +12,16 @@ const Cart = ({
   setGeneral,
   cloneProducts,
 }) => {
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      console.log("aaaa");
+    } else {
+      isMounted.current = true;
+    }
+  }, [cloneProducts]);
+
   return (
     <StyledCart className="cart">
       {general.value === 0 ? (
