@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 // Components
@@ -11,15 +11,13 @@ const Cart = ({
   general,
   setGeneral,
   cloneProducts,
+  setCloneProducts,
+  getCloneProducts,
+  delCloneProducts,
 }) => {
-  const isMounted = useRef(false);
-
   useEffect(() => {
-    if (isMounted.current) {
-      console.log("aaaa");
-    } else {
-      isMounted.current = true;
-    }
+    console.log("aaaaaaaaaaaa");
+    
   }, [cloneProducts]);
 
   return (
@@ -39,6 +37,9 @@ const Cart = ({
               products={products}
               setProducts={setProducts}
               cloneProducts={cloneProducts}
+              setCloneProducts={setCloneProducts}
+              getCloneProducts={getCloneProducts}
+              delCloneProducts={delCloneProducts}
               general={general}
               setGeneral={setGeneral}
               id={p.id}

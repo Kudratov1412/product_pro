@@ -30,6 +30,22 @@ function App() {
 
   const [cloneProducts, updateCloneProducts] = useState([]);
 
+  const setCloneProducts = (id, newValue) => {
+    updateCloneProducts((prevCloneProducts) =>
+      prevCloneProducts.map((p) =>
+        p.id === id ? { ...p, value: newValue } : p,
+      ),
+    );
+  };
+
+  const getCloneProducts = (id) => cloneProducts.filter((p) => p.id === id)[0];
+
+  const delCloneProducts = (id) =>
+    cloneProducts.splice(
+      cloneProducts.find((p) => p.id === id),
+      1,
+    );
+
   const [general, setGeneral] = useState({
     price: 0,
     value: 0,
@@ -70,6 +86,9 @@ function App() {
             general={general}
             setGeneral={setGeneral}
             cloneProducts={cloneProducts}
+            setCloneProducts={setCloneProducts}
+            getCloneProducts={getCloneProducts}
+            delCloneProducts={delCloneProducts}
           />
         </Route>
       </Switch>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // FrameWorks
 import styled from "styled-components";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -8,44 +8,55 @@ export const MovCard = ({
   products,
   setProducts,
   cloneProducts,
+  setCloneProducts,
+  getCloneProducts,
+  delCloneProducts,
   general,
   setGeneral,
   id,
 }) => {
-  const p = products.filter((p) => p.id === id)[0];
+  const p = products[id - 1];
 
   const [inputVal, setInputVal] = useState(p.value);
+  const inputRef = useRef(p.value);
 
+  // useEffect(() => {
+  //   console.log(p, "p");
+  // }, [p]);
+
+  // useEffect(() => {
+  //   products.map((p, i) => console.log(p.value, i, "products"));
+  // }, [products]);
+
+  // useEffect(() => {
+  //   cloneProducts.map((p, i) => console.log(p.value, i, "cloneProducts"));
+  // }, [cloneProducts]);
 
   const increment = () => {
-    p.value += 1;
-
     setGeneral({
       price: general.price + Number(p.price),
       value: general.value + 1,
     });
 
-    if (!cloneProducts.includes(p)) {
-      cloneProducts.unshift(p);
-    }
-
-    setInputVal(inputVal + 1);
+    setProducts(id, products[id - 1].value + 1);
+    setCloneProducts(id, getCloneProducts(id).value + 1);
+    setInputVal(inputRef.current + 1);
+    inputRef.current += 1;
   };
 
   const decrement = () => {
-    p.value -= 1;
+    if (inputVal > 0) {
+      setGeneral({
+        price: general.price - Number(p.price),
+        value: general.value - 1,
+      });
 
-    setGeneral({
-      price: general.price - Number(p.price),
-      value: general.value - 1,
-    });
-
-    if (cloneProducts.includes(p) && p.value === 0) {
-      const i = cloneProducts.indexOf(p);
-      cloneProducts.splice(i, 1);
+      setProducts(id, products[id - 1].value - 1);
+      setCloneProducts(id, getCloneProducts(id).value - 1);
+      setInputVal(inputRef.current - 1);
+      inputRef.current -= 1;
     }
-
-    if (inputVal > 0) setInputVal(inputVal - 1);
+    if (inputVal === 0) delCloneProducts(id);
   };
 
   const goNull = () => {
@@ -53,8 +64,7 @@ export const MovCard = ({
       price: general.price - Number(p.price) * p.value,
       value: general.value - p.value,
     });
-    cloneProducts.splice(cloneProducts.indexOf(p), 1);
-    setProducts(id, 0);
+    delCloneProducts(id);
   };
 
   return (
@@ -78,6 +88,7 @@ export const MovCard = ({
             type="number"
             min={0}
             value={inputVal}
+            useRef={inputRef}
             onChange={(e) => {
               const val = Number(e.target.value);
               if (val > inputVal) {
@@ -85,21 +96,18 @@ export const MovCard = ({
                   price: general.price + Number(p.price),
                   value: general.value + 1,
                 });
-                if (!cloneProducts.includes(p)) {
-                  cloneProducts.unshift(p);
-                }
               }
               if (val < inputVal) {
                 setGeneral({
                   price: general.price - Number(p.price),
                   value: general.value - 1,
                 });
-                if (cloneProducts.includes(p) && p.value === 0) {
-                  cloneProducts.splice(cloneProducts.indexOf(p), 1);
-                }
+                if (inputVal === 0) delCloneProducts(id);
               }
+              inputRef.current = val;
               setInputVal(val);
               setProducts(id, val);
+              setCloneProducts(id, val);
             }}
           />
           <motion.button
@@ -119,6 +127,7 @@ export const MovCard = ({
             whileHover={{ color: "#db7093" }}
           >
             <i className="fa-solid fa-trash-can"></i>
+            {p.value}
           </motion.button>
         </div>
       </div>
@@ -134,6 +143,7 @@ const StyledMovCard = styled.div`
   align-items: center;
   img {
     height: 100px;
+    max-width: 95%;
     justify-self: center;
   }
   a {
