@@ -14,11 +14,18 @@ const Cart = ({
   setCloneProducts,
   getCloneProducts,
   delCloneProducts,
+  delState,
+  setDelState,
 }) => {
   useEffect(() => {
-    console.log("aaaaaaaaaaaa");
-    
-  }, [cloneProducts]);
+
+    if (delState) {
+      console.log("aaaaaaaaaaaa");
+      setDelState(false);
+    }
+  }, [cloneProducts, delState]);
+  console.log("b");
+  
 
   return (
     <StyledCart className="cart">
@@ -40,6 +47,7 @@ const Cart = ({
               setCloneProducts={setCloneProducts}
               getCloneProducts={getCloneProducts}
               delCloneProducts={delCloneProducts}
+              setDelState={setDelState}
               general={general}
               setGeneral={setGeneral}
               id={p.id}

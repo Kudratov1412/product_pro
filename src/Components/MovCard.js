@@ -11,10 +11,13 @@ export const MovCard = ({
   setCloneProducts,
   getCloneProducts,
   delCloneProducts,
+  setDelState,
   general,
   setGeneral,
   id,
 }) => {
+  console.log(id);
+
   const p = products[id - 1];
 
   const [inputVal, setInputVal] = useState(p.value);
@@ -56,7 +59,11 @@ export const MovCard = ({
       setInputVal(inputRef.current - 1);
       inputRef.current -= 1;
     }
-    if (inputVal === 0) delCloneProducts(id);
+
+    if (inputRef.current === 0) {
+      delCloneProducts(id);
+      setDelState(true);
+    }
   };
 
   const goNull = () => {
@@ -65,6 +72,7 @@ export const MovCard = ({
       value: general.value - p.value,
     });
     delCloneProducts(id);
+    setDelState(true);
   };
 
   return (
@@ -102,7 +110,10 @@ export const MovCard = ({
                   price: general.price - Number(p.price),
                   value: general.value - 1,
                 });
-                if (inputVal === 0) delCloneProducts(id);
+                if (inputRef.current === 0) {
+                  delCloneProducts(id);
+                  setDelState(true);
+                }
               }
               inputRef.current = val;
               setInputVal(val);

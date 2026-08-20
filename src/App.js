@@ -28,6 +28,8 @@ function App() {
     );
   };
 
+  const [delState, setDelState] = useState(false);
+
   const [cloneProducts, updateCloneProducts] = useState([]);
 
   const setCloneProducts = (id, newValue) => {
@@ -89,6 +91,8 @@ function App() {
             setCloneProducts={setCloneProducts}
             getCloneProducts={getCloneProducts}
             delCloneProducts={delCloneProducts}
+            delState={delState}
+            setDelState={setDelState}
           />
         </Route>
       </Switch>
