@@ -14,7 +14,6 @@ import {
   Route,
   useLocation,
   Redirect,
-  Prompt,
 } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
@@ -27,8 +26,6 @@ function App() {
       prevProducts.map((p) => (p.id === id ? { ...p, value: newValue } : p)),
     );
   };
-
-  const [delState, setDelState] = useState(false);
 
   const [cloneProducts, updateCloneProducts] = useState([]);
 
@@ -43,11 +40,8 @@ function App() {
   const getCloneProducts = (id) => cloneProducts.filter((p) => p.id === id)[0];
 
   const delCloneProducts = (id) => {
-    cloneProducts.splice(
-      cloneProducts.find((p) => p.id === id),
-      1,
-    );
-    console.log(id, "delete clone product");
+    const i = cloneProducts.findIndex((p) => p.id === id);
+    cloneProducts.splice(i, 1);
   };
 
   const [general, setGeneral] = useState({
@@ -93,8 +87,6 @@ function App() {
             setCloneProducts={setCloneProducts}
             getCloneProducts={getCloneProducts}
             delCloneProducts={delCloneProducts}
-            delState={delState}
-            setDelState={setDelState}
           />
         </Route>
       </Switch>

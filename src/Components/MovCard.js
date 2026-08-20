@@ -7,33 +7,40 @@ import { motion } from "framer-motion";
 export const MovCard = ({
   products,
   setProducts,
-  cloneProducts,
   setCloneProducts,
   getCloneProducts,
   delCloneProducts,
-  setDelState,
   general,
   setGeneral,
   id,
+  yaxlit,
 }) => {
-  console.log(id, "MovCard render");
-
-  const p = products[id - 1];
-
+  const p = getCloneProducts(id);
 
   const inputRef = useRef(p.value);
+  inputRef.current = p.value;
 
-  // useEffect(() => {
-  //   console.log(p, "p");
-  // }, [p]);
-
-  // useEffect(() => {
-  //   products.map((p, i) => console.log(p.value, i, "products"));
-  // }, [products]);
-
-  // useEffect(() => {
-  //   cloneProducts.map((p, i) => console.log(p.value, i, "cloneProducts"));
-  // }, [cloneProducts]);
+  const setInput = (e) => {
+    const val = Number(e.target.value);
+    if (val > inputRef) {
+      setGeneral({
+        price: general.price + Number(p.price),
+        value: general.value + 1,
+      });
+    }
+    if (val < inputRef) {
+      setGeneral({
+        price: general.price - Number(p.price),
+        value: general.value - 1,
+      });
+      if (inputRef.current === 0) {
+        delCloneProducts(id);
+      }
+    }
+    inputRef.current = val;
+    setProducts(id, val);
+    setCloneProducts(id, val);
+  };
 
   const increment = () => {
     setGeneral({
@@ -61,7 +68,6 @@ export const MovCard = ({
     if (inputRef.current === 0) {
       delCloneProducts(id);
       setProducts(id, 0);
-      setDelState(true);
     }
   };
 
@@ -72,7 +78,6 @@ export const MovCard = ({
     });
     delCloneProducts(id);
     setProducts(id, 0);
-    setDelState(true);
   };
 
   return (
@@ -97,28 +102,7 @@ export const MovCard = ({
             min={0}
             value={p.value}
             useRef={inputRef}
-            onChange={(e) => {
-              const val = Number(e.target.value);
-              if (val > inputRef) {
-                setGeneral({
-                  price: general.price + Number(p.price),
-                  value: general.value + 1,
-                });
-              }
-              if (val < inputRef) {
-                setGeneral({
-                  price: general.price - Number(p.price),
-                  value: general.value - 1,
-                });
-                if (inputRef.current === 0) {
-                  delCloneProducts(id);
-                  setDelState(true);
-                }
-              }
-              inputRef.current = val;
-              setProducts(id, val);
-              setCloneProducts(id, val);
-            }}
+            onChange={setInput}
           />
           <motion.button
             onClick={increment}
@@ -137,11 +121,10 @@ export const MovCard = ({
             whileHover={{ color: "#db7093" }}
           >
             <i className="fa-solid fa-trash-can"></i>
-            {p.value}
           </motion.button>
         </div>
       </div>
-      <p className="totalPrice">${p.value * Number(p.price)}</p>
+      <p className="totalPrice">${yaxlit(p.value * Number(p.price))}</p>
     </StyledMovCard>
   );
 };

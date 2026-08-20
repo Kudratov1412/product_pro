@@ -14,17 +14,11 @@ const Cart = ({
   setCloneProducts,
   getCloneProducts,
   delCloneProducts,
-  delState,
-  setDelState,
 }) => {
-  useEffect(() => {
-    if (delState) {
-      console.log("aaaaaaaaaaaa");
-      setDelState(false);
-    }
-  }, [cloneProducts, delState]);
-
-  console.log("Cart render");
+  const yaxlit = (n) => {
+    const s = String(Math.round(n * 100));
+    return s.slice(0, s.length - 2) + "." + s.slice(-2);
+  };
 
   return (
     <StyledCart className="cart">
@@ -46,15 +40,15 @@ const Cart = ({
               setCloneProducts={setCloneProducts}
               getCloneProducts={getCloneProducts}
               delCloneProducts={delCloneProducts}
-              setDelState={setDelState}
               general={general}
               setGeneral={setGeneral}
               id={p.id}
+              yaxlit={yaxlit}
             />
           ))}
           <p className="footer">
             <span>total before shipping: </span>
-            {general.value} items {"($" + general.price + ")"}
+            {general.value} items {"($" + yaxlit(general.price) + ")"}
           </p>
         </div>
       )}
