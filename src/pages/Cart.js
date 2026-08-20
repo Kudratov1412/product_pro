@@ -18,14 +18,13 @@ const Cart = ({
   setDelState,
 }) => {
   useEffect(() => {
-
     if (delState) {
       console.log("aaaaaaaaaaaa");
       setDelState(false);
     }
   }, [cloneProducts, delState]);
-  console.log("b");
-  
+
+  console.log("Cart render");
 
   return (
     <StyledCart className="cart">

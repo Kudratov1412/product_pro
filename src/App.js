@@ -42,11 +42,13 @@ function App() {
 
   const getCloneProducts = (id) => cloneProducts.filter((p) => p.id === id)[0];
 
-  const delCloneProducts = (id) =>
+  const delCloneProducts = (id) => {
     cloneProducts.splice(
       cloneProducts.find((p) => p.id === id),
       1,
     );
+    console.log(id, "delete clone product");
+  };
 
   const [general, setGeneral] = useState({
     price: 0,

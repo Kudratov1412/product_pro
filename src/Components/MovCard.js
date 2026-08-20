@@ -16,11 +16,11 @@ export const MovCard = ({
   setGeneral,
   id,
 }) => {
-  console.log(id);
+  console.log(id, "MovCard render");
 
   const p = products[id - 1];
 
-  const [inputVal, setInputVal] = useState(p.value);
+
   const inputRef = useRef(p.value);
 
   // useEffect(() => {
@@ -43,12 +43,11 @@ export const MovCard = ({
 
     setProducts(id, products[id - 1].value + 1);
     setCloneProducts(id, getCloneProducts(id).value + 1);
-    setInputVal(inputRef.current + 1);
     inputRef.current += 1;
   };
 
   const decrement = () => {
-    if (inputVal > 0) {
+    if (inputRef.current > 0) {
       setGeneral({
         price: general.price - Number(p.price),
         value: general.value - 1,
@@ -56,12 +55,12 @@ export const MovCard = ({
 
       setProducts(id, products[id - 1].value - 1);
       setCloneProducts(id, getCloneProducts(id).value - 1);
-      setInputVal(inputRef.current - 1);
       inputRef.current -= 1;
     }
 
     if (inputRef.current === 0) {
       delCloneProducts(id);
+      setProducts(id, 0);
       setDelState(true);
     }
   };
@@ -72,6 +71,7 @@ export const MovCard = ({
       value: general.value - p.value,
     });
     delCloneProducts(id);
+    setProducts(id, 0);
     setDelState(true);
   };
 
@@ -95,17 +95,17 @@ export const MovCard = ({
           <input
             type="number"
             min={0}
-            value={inputVal}
+            value={p.value}
             useRef={inputRef}
             onChange={(e) => {
               const val = Number(e.target.value);
-              if (val > inputVal) {
+              if (val > inputRef) {
                 setGeneral({
                   price: general.price + Number(p.price),
                   value: general.value + 1,
                 });
               }
-              if (val < inputVal) {
+              if (val < inputRef) {
                 setGeneral({
                   price: general.price - Number(p.price),
                   value: general.value - 1,
@@ -116,7 +116,6 @@ export const MovCard = ({
                 }
               }
               inputRef.current = val;
-              setInputVal(val);
               setProducts(id, val);
               setCloneProducts(id, val);
             }}
