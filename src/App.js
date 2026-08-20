@@ -74,8 +74,14 @@ function App() {
             setGeneral={setGeneral}
           />
         </Route>
-        <Route path="/product/:id">
-          <Product />
+        <Route path="/products/:id">
+          <Product
+            products={products}
+            cloneProducts={cloneProducts}
+            getCloneProducts={getCloneProducts}
+            general={general}
+            setGeneral={setGeneral}
+          />
         </Route>
         <Route path="/cart">
           <Cart

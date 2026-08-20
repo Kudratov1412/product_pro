@@ -32,7 +32,7 @@ export const ProCard = ({ product, cloneProducts, general, setGeneral }) => {
           <p>${p.price}</p>
         </div>
       </Link>
-      <form className="shopping" action="">
+      <form action="">
         <input
           type="number"
           name="num"
@@ -84,7 +84,7 @@ const StyledProCard = styled.div`
       margin: 0.8rem;
     }
   }
-  .shopping {
+  form {
     display: flex;
     input,
     button {
